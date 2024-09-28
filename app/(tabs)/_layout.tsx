@@ -4,6 +4,7 @@ import { View, Image, Text } from "react-native";
 import { useTranslation } from "react-i18next";
 import i18next from "../../services/i18next";
 import { icons } from "../../constants";
+import Header from "../../components/Header";
 
 interface TabIconProps {
   icon: any; // Use the appropriate type if icons have a stricter type, such as ImageSourcePropType
@@ -35,6 +36,7 @@ const TabsLayout = () => {
   const { t } = useTranslation();
   return (
     <>
+      {/* <Header /> */}
       <Tabs
         screenOptions={{
           tabBarShowLabel: false,
