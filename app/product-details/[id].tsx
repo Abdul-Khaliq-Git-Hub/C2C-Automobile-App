@@ -27,9 +27,9 @@ type Car = {
   Model: string;
   id: string;
   Brand: string;
-  EngineType: string;
+  Engine: string;
   CylinderType: string;
-  KilometerDriven: string;
+  Miles: string;
   Location: string;
   Price: string;
   images: string[];
@@ -139,6 +139,8 @@ const CarDetails = () => {
                 key={index}
                 source={{ uri: image }}
                 style={{
+                  borderWidth: 2,
+                  borderColor: "#d3d3d3",
                   width: screenWidth,
                   height: 400,
                   borderRadius: 10,
@@ -191,6 +193,20 @@ const CarDetails = () => {
             <View className="flex-row p-1">
               <Text className="text-base">Location: </Text>
               <Text className="text-base">{car.SellerLocation}</Text>
+            </View>
+            <View className="flex-row p-2 justify-evenly">
+              <TouchableOpacity className="w-1/3 bg-primary rounded-lg h-10 items-center justify-center p-2">
+                <Text className="text-lg color-white">Phone</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                className=" w-1/3 bg-primary rounded-lg h-10 items-center justify-center p-2"
+                style={{ backgroundColor: "rgb(40, 167, 69)" }}
+              >
+                <View className="flex-row items-center justify-center gap-1">
+                  <Image className="w-5 h-5" source={icons.whatsapplogo} />
+                  <Text className="text-lg color-white">WhatsApp</Text>
+                </View>
+              </TouchableOpacity>
             </View>
           </View>
 
@@ -259,7 +275,7 @@ const CarDetails = () => {
                   className="text-base h-10 items-center justify-center"
                   style={{ backgroundColor: "#e6e7e8" }}
                 >
-                  <Text>{car.KilometerDriven}</Text>
+                  <Text>{car.Miles}</Text>
                 </View>
                 <View
                   className="text-base h-10 items-center justify-center"
@@ -283,7 +299,7 @@ const CarDetails = () => {
                   className="text-base h-10 items-center justify-center"
                   style={{ backgroundColor: "#e6e7e8" }}
                 >
-                  <Text>Engine{car.EngineType}</Text>
+                  <Text>Engine{car.Engine}</Text>
                 </View>
                 <View
                   className="text-base h-10 items-center justify-center"
@@ -297,7 +313,7 @@ const CarDetails = () => {
                   className="text-base h-10 items-center justify-center"
                   style={{ backgroundColor: "#e6e7e8" }}
                 >
-                  <Text>{car.EngineType}</Text>
+                  <Text>{car.Engine}</Text>
                 </View>
                 <View
                   className="text-base h-10 items-center justify-center"
