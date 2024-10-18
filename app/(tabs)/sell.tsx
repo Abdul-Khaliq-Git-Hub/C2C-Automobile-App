@@ -8,6 +8,8 @@ import TransmissionSelection from "../../components/SelectionForm";
 import ConditionSelection from "../../components/SelectionForm";
 import brandTypes from "../../constants/brandTypes";
 import truckTypes from "../../constants/truckTypes";
+import ImageUpload from "../../components/ImageUpload";
+import SubmitButton from "../../components/SubmitButton";
 
 const Sell = () => {
   const [brandPickerVisible, setBrandPickerVisible] = useState(false);
@@ -15,15 +17,19 @@ const Sell = () => {
   const fuelTypes = ["Petrol", "Diesel", "LPG", "CNG & Hybrids", "Electric"];
   const conditionType = ["New", "Used"];
   const transmissionType = ["Manual", "Automatic", "Hybrid"];
+  const [images, setImages] = useState(Array(5).fill(null)); // Array of 5 null values initially
 
   const [form, SetForm] = useState({
     Brand: "",
     TruckType: "",
+    Model: "",
+    WorkingHours: "",
+    Engine: "",
     Year: "",
     Fuel: "",
     Condition: "",
     Transmission: "",
-    KiloMeterDriven: "",
+    Miles: "",
     Price: "",
     SellerName: "",
     SellerPhone: "",
@@ -34,14 +40,14 @@ const Sell = () => {
     SetForm((prevData) => {
       return { ...prevData, Brand: value };
     });
-    setBrandPickerVisible(false); // Update the state with the selected value
+    setBrandPickerVisible(false);
   };
 
   const handleTruckChange = (value: string) => {
     SetForm((prevData) => {
       return { ...prevData, TruckType: value };
     });
-    setTruckPickerVisible(false); // Update the state with the selected value
+    setTruckPickerVisible(false);
   };
 
   const handleChangeText = (value: string, name: string) => {
@@ -50,7 +56,7 @@ const Sell = () => {
     });
   };
   return (
-    <SafeAreaView className="h-full">
+    <>
       <ScrollView style={{ opacity: brandPickerVisible ? 0.1 : 1 }}>
         <Text className="text-2xl font-psemibold text-center mt-2">
           Post Your Ad
@@ -58,7 +64,7 @@ const Sell = () => {
         <View className="m-2">
           <Text className="text-2xl">Include Truck Details</Text>
         </View>
-        {/* Brand Dropdown */}
+
         <FormFieldDropdown
           constant={brandTypes}
           title="Brand"
@@ -68,7 +74,6 @@ const Sell = () => {
           handleChange={handleBrandChange}
         />
 
-        {/* Truck Type Dropdown */}
         <FormFieldDropdown
           constant={truckTypes}
           title="Truck Type"
@@ -78,7 +83,22 @@ const Sell = () => {
           handleChange={handleTruckChange}
         />
 
-        {/* Year Field */}
+        <FormField
+          title="Model"
+          name="Model"
+          value={form.Model}
+          otherStyles="m-2"
+          handleChangeText={(value) => handleChangeText(value, "Model")}
+        />
+
+        <FormField
+          title="Engine"
+          name="Engine"
+          value={form.Engine}
+          otherStyles="m-2"
+          handleChangeText={(value) => handleChangeText(value, "Engine")}
+        />
+
         <FormField
           title="Year"
           name="Year"
@@ -87,18 +107,72 @@ const Sell = () => {
           handleChangeText={(value) => handleChangeText(value, "Year")}
         />
 
-        {/* Kilometer Driven Field */}
         <FormField
-          title="KM"
-          name="KiloMeterDriven"
-          value={form.KiloMeterDriven}
+          title="Working Hours"
+          name="WorkingHours"
+          value={form.WorkingHours}
           otherStyles="m-2"
-          handleChangeText={(value) =>
-            handleChangeText(value, "KiloMeterDriven")
-          }
+          handleChangeText={(value) => handleChangeText(value, "WorkingHours")}
         />
 
-        {/* Price Field */}
+        <FuelSelection
+          selection={fuelTypes}
+          name="Fuel"
+          value={form.Fuel}
+          handleChangeText={(value) => handleChangeText(value, "Fuel")}
+        />
+
+        <FormField
+          title="Miles"
+          name="Miles"
+          value={form.Miles}
+          otherStyles="m-2"
+          handleChangeText={(value) => handleChangeText(value, "Miles")}
+        />
+
+        <ConditionSelection
+          selection={conditionType}
+          name="Condition"
+          value={form.Condition}
+          handleChangeText={(value) => handleChangeText(value, "Condition")}
+        />
+
+        <TransmissionSelection
+          selection={transmissionType}
+          name="Transmission"
+          value={form.Transmission}
+          handleChangeText={(value) => handleChangeText(value, "Transmission")}
+        />
+
+        <View>
+          <Text className="text-2xl font-pblack m-2">Seller Details</Text>
+          <FormField
+            title="Name"
+            name="SellerName"
+            value={form.SellerName}
+            otherStyles="m-2"
+            handleChangeText={(value) => handleChangeText(value, "SellerName")}
+          />
+          <FormField
+            title="Phone"
+            name="SellerPhone"
+            value={form.SellerPhone}
+            otherStyles="m-2"
+            handleChangeText={(value) => handleChangeText(value, "SellerPhone")}
+          />
+          <FormField
+            title="Location"
+            name="SellerLocation"
+            value={form.SellerLocation}
+            otherStyles="m-2"
+            handleChangeText={(value) =>
+              handleChangeText(value, "SellerLocation")
+            }
+          />
+        </View>
+
+        <ImageUpload images={images} setImages={setImages} />
+
         <FormField
           title="Price"
           name="Price"
@@ -107,56 +181,9 @@ const Sell = () => {
           handleChangeText={(value) => handleChangeText(value, "Price")}
         />
 
-        {/* Seller Name Field */}
-        <FormField
-          title="Name"
-          name="SellerName"
-          value={form.SellerName}
-          otherStyles="m-2"
-          handleChangeText={(value) => handleChangeText(value, "SellerName")}
-        />
-
-        {/* Seller Phone Field */}
-        <FormField
-          title="Phone"
-          name="SellerPhone"
-          value={form.SellerPhone}
-          otherStyles="m-2"
-          handleChangeText={(value) => handleChangeText(value, "SellerPhone")}
-        />
-
-        {/* Seller Location Field */}
-        <FormField
-          title="Location"
-          name="SellerLocation"
-          value={form.SellerLocation}
-          otherStyles="m-2"
-          handleChangeText={(value) =>
-            handleChangeText(value, "SellerLocation")
-          }
-        />
-
-        {/* Fuel Selection */}
-        <FuelSelection
-          selection={fuelTypes}
-          name="Fuel"
-          value={form.Fuel}
-          handleChangeText={(value) => handleChangeText(value, "Fuel")}
-        />
-        <TransmissionSelection
-          selection={transmissionType}
-          name="Transmission"
-          value={form.Transmission}
-          handleChangeText={(value) => handleChangeText(value, "Transmission")}
-        />
-        <ConditionSelection
-          selection={conditionType}
-          name="Condition"
-          value={form.Condition}
-          handleChangeText={(value) => handleChangeText(value, "Condition")}
-        />
+        <SubmitButton formData={form} images={images} />
       </ScrollView>
-    </SafeAreaView>
+    </>
   );
 };
 
