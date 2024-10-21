@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { images } from "../../constants";
-import FormField from "../../components/FormField";
+import AuthField from "../../components/AuthField";
 import { useState } from "react";
 import { Link, router } from "expo-router";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
@@ -57,14 +57,14 @@ const SignIn = () => {
             resizeMode="contain"
           />
           <Text className="color-white text-xl">Sign In</Text>
-          <FormField
+          <AuthField
             title="Email"
             placeholder={"Email"}
             value={form.email}
             handleChangeText={(e) => setForm({ ...form, email: e })}
             otherStyles="mt-7"
           />
-          <FormField
+          <AuthField
             title="Password"
             placeholder={"Password"}
             value={form.password}
