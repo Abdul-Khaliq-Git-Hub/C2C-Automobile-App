@@ -24,17 +24,24 @@ export default function Product(props: CarProductProps) {
   const renderCount = useRef(0);
   const user = useUser();
   const [heart, setHeart] = useState(false);
-  console.log(user);
+
+  useEffect(() => {
+    if (user && user.favourites) {
+      setHeart(user.favourites.includes(props.id));
+    }
+  }, [user, props.id]);
+
   useEffect(() => {
     renderCount.current += 1;
     console.log(`Product component has rendered ${renderCount.current} times`);
   });
+
   const handleFavourite = async () => {
     if (user) {
       const userDocRef = doc(getFirestore(), "users", user.uid);
       try {
         await updateDoc(userDocRef, {
-          favourites: heart ? arrayUnion(props.id) : arrayRemove(props.id),
+          favourites: heart ? arrayRemove(props.id) : arrayUnion(props.id),
         });
         setHeart((prevState) => !prevState);
       } catch (error) {
@@ -61,7 +68,7 @@ export default function Product(props: CarProductProps) {
         onPress={() => handleFavourite()}
       >
         <Image
-          source={heart ? icons.unmarkedheart : icons.heart}
+          source={heart ? icons.heart : icons.unmarkedheart}
           resizeMode="contain"
           className="h-6 w-6"
         />
