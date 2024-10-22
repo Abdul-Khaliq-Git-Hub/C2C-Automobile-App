@@ -7,11 +7,14 @@ import { db, storage } from "../firebase/firebaseConfig";
 type FormData = {
   Brand: string;
   TruckType: string;
+  Model: string;
   Year: string;
+  WorkingHours: string;
+  Engine: string;
   Fuel: string;
   Condition: string;
   Transmission: string;
-  KiloMeterDriven: string;
+  Miles: string;
   Price: string;
   SellerName: string;
   SellerPhone: string;
@@ -53,7 +56,8 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({ formData, images }) => {
       if (images[i]) {
         const response = await fetch(images[i] as string);
         const blob = await response.blob();
-        const imageRef = ref(storage, `images/${Date.now()}_${i}.jpg`);
+        const uniqueImageName = `${Date.now()}_${i}.png`;
+        const imageRef = ref(storage, `images/${uniqueImageName}${i}.png`);
         await uploadBytes(imageRef, blob);
         const url = await getDownloadURL(imageRef);
         imageUrls.push(url);
