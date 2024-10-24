@@ -6,5 +6,9 @@
   "ar": {
     "name": "Arabic",
     "nativeName": "عربي"
+  },
+  "ku": {
+    "name": "Kurdish",
+    "nativeName": "کوردی"
   }
 }
