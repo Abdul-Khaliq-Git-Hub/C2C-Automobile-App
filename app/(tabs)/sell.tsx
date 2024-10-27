@@ -10,6 +10,7 @@ import brandTypes from "../../constants/brandTypes";
 import truckTypes from "../../constants/truckTypes";
 import ImageUpload from "../../components/ImageUpload";
 import SubmitButton from "../../components/SubmitButton";
+import { useTranslation } from "react-i18next";
 
 const Sell = () => {
   const [brandPickerVisible, setBrandPickerVisible] = useState(false);
@@ -18,7 +19,7 @@ const Sell = () => {
   const conditionType = ["New", "Used"];
   const transmissionType = ["Manual", "Automatic", "Hybrid"];
   const [images, setImages] = useState(Array(5).fill(null)); // Array of 5 null values initially
-
+  const { t } = useTranslation();
   const [form, SetForm] = useState({
     Brand: "",
     TruckType: "",
@@ -59,10 +60,10 @@ const Sell = () => {
     <>
       <ScrollView style={{ opacity: brandPickerVisible ? 0.1 : 1 }}>
         <Text className="text-2xl font-psemibold text-center mt-2">
-          Post Your Ad
+          {t("Post Your Ad")}
         </Text>
         <View className="m-2">
-          <Text className="text-2xl">Include Truck Details</Text>
+          <Text className="text-2xl">{t("Include Truck Details")}</Text>
         </View>
 
         <FormFieldDropdown
@@ -145,7 +146,9 @@ const Sell = () => {
         />
 
         <View>
-          <Text className="text-2xl font-pblack m-2">Seller Details</Text>
+          <Text className="text-2xl font-pblack m-2">
+            {t("Seller Details")}
+          </Text>
           <FormField
             title="Name"
             name="SellerName"

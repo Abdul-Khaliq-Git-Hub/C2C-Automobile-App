@@ -1,24 +1,16 @@
-import {
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  TouchableOpacity,
-} from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { ScrollView, Text, View, Image, TouchableOpacity } from "react-native";
 import { images } from "../../constants";
 import { icons } from "../../constants";
 import { useRouter } from "expo-router";
-import { useState } from "react";
 import { useUser } from "../../context/UserContext";
 import { signOut } from "firebase/auth";
 import { auth } from "../../firebase/firebaseConfig";
+import { useTranslation } from "react-i18next";
 
 export default function Profile() {
   const user = useUser();
   const router = useRouter();
-
+  const { t } = useTranslation();
   const handleLogout = async () => {
     try {
       await signOut(auth);
@@ -32,8 +24,8 @@ export default function Profile() {
   return (
     <>
       <ScrollView className="bg-secondary">
-        <View className="items-center">
-          <Text className="text-xl color-white">My Account</Text>
+        <View className="items-center mt-2">
+          <Text className="text-xl color-white">{t("My Account")}</Text>
         </View>
         <View className="rounded-xl flex-row items-center gap-2 m-2 ">
           <Image
@@ -43,11 +35,9 @@ export default function Profile() {
           />
           <View className="flex">
             <Text className="text-lg color-white">
-              {user?.username || "Guest"}
+              {user?.username || "Guest Account"}
             </Text>
-            <Text className="text-lg color-white">
-              {user?.email || "Email"}
-            </Text>
+            <Text className="text-lg color-white">{user?.email || ""}</Text>
           </View>
         </View>
         <View className="mt-6">
@@ -61,7 +51,7 @@ export default function Profile() {
                 className="h-[100] w-[100]"
                 resizeMode="contain"
               />
-              <Text>Categories</Text>
+              <Text>{t("Categories")}</Text>
             </TouchableOpacity>
             <TouchableOpacity
               className="flex-1 m-2 ml-1 p-4 items-center rounded-lg bg-white items-center justify-center"
@@ -72,7 +62,7 @@ export default function Profile() {
                 className="h-[100] w-[100]"
                 resizeMode="contain"
               />
-              <Text>Sell Your Truck</Text>
+              <Text>{t("Sell Your Truck")}</Text>
             </TouchableOpacity>
           </View>
           <View className="flex-row justify-evenly">
@@ -85,7 +75,7 @@ export default function Profile() {
                 className="h-[100] w-[100]"
                 resizeMode="contain"
               />
-              <Text>Favourites</Text>
+              <Text>{t("Favourites")}</Text>
             </TouchableOpacity>
             {user ? (
               <TouchableOpacity
@@ -97,7 +87,7 @@ export default function Profile() {
                   className="h-[100] w-[100]"
                   resizeMode="contain"
                 />
-                <Text>Log Out</Text>
+                <Text>{t("Log Out")}</Text>
               </TouchableOpacity>
             ) : (
               <TouchableOpacity
@@ -109,7 +99,7 @@ export default function Profile() {
                   className="h-[100] w-[100]"
                   resizeMode="contain"
                 />
-                <Text>Log In</Text>
+                <Text>{t("Log In")}</Text>
               </TouchableOpacity>
             )}
           </View>
