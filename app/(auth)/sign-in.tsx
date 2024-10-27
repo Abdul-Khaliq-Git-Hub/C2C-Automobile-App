@@ -53,10 +53,9 @@ const SignIn = () => {
         <View className="w-full justify-center items-center h-full px-4 my-6">
           <Image
             source={images.logo}
-            className="w-[115px] h-[75px]"
+            className="w-[120px] h-[50px]"
             resizeMode="contain"
           />
-          <Text className="color-white text-xl">Sign In</Text>
           <AuthField
             title="Email"
             placeholder={"Email"}
@@ -72,7 +71,7 @@ const SignIn = () => {
             otherStyles="mt-7"
           />
           <TouchableOpacity
-            className="border-2 border-black-100 w-full h-16 px-4 bg-black-100 rounded-xl focus:border-primary items-center justify-center flex-row bg-primary mt-8"
+            className="border-2 border-black-100 w-full h-14 px-4 bg-black-100 rounded-xl focus:border-primary items-center justify-center flex-row bg-primary mt-8"
             onPress={loginUser}
           >
             <Text className="items-center text-lg justify-center">Sign In</Text>
