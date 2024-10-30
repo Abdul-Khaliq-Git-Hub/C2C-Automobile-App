@@ -9,6 +9,7 @@ import {
   arrayUnion,
 } from "firebase/firestore";
 import { useUser } from "../context/UserContext";
+import { useTranslation } from "react-i18next";
 
 interface CarProductProps {
   id: string;
@@ -24,7 +25,7 @@ export default function Product(props: CarProductProps) {
   const renderCount = useRef(0);
   const user = useUser();
   const [heart, setHeart] = useState(false);
-
+  const { t } = useTranslation();
   useEffect(() => {
     if (user && user.favourites) {
       setHeart(user.favourites.includes(props.id));
@@ -76,19 +77,22 @@ export default function Product(props: CarProductProps) {
 
       {/* Car Details */}
       <View className="p-4 bg-white rounded-b-lg">
-        <Text className="text-xl font-semibold mb-2">{props.Brand}</Text>
+        <Text className="text-xl font-semibold mb-2">{t(props.Brand)}</Text>
 
         <View className="flex-row justify-between mb-4">
           {/* Engine */}
           <View className="items-center">
             <Image source={icons.engine} style={{ width: 35, height: 35 }} />
-            <Text className="text-sm mt-2">Engine,{props.Engine}</Text>
+            <Text className="text-sm mt-2">Engine,{t(props.Engine)}</Text>
           </View>
 
           {/* Odometer */}
           <View className="items-center">
             <Image source={icons.odometer} style={{ width: 35, height: 35 }} />
-            <Text className="text-sm mt-2">{props.Miles} Miles</Text>
+            <Text className="text-sm mt-2">
+              {t(props.Miles)}
+              {t(" Miles")}
+            </Text>
           </View>
         </View>
 
@@ -100,7 +104,7 @@ export default function Product(props: CarProductProps) {
               source={icons.locationpin}
               resizeMode="contain"
             />
-            <Text className="text-sm text-gray-600">{props.Location}</Text>
+            <Text className="text-sm text-gray-600">{t(props.Location)}</Text>
           </View>
           <Text className="text-sm font-semibold text-gray-800">
             ${props.Price}
