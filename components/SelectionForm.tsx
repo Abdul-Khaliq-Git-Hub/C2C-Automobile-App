@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 
 interface SelectionProps {
@@ -13,9 +14,10 @@ const SelectionForm: React.FC<SelectionProps> = ({
   value,
   handleChangeText,
 }) => {
+  const { t } = useTranslation();
   return (
     <View className="m-2">
-      <Text className="text-base text-black font-pmedium">{name}*</Text>
+      <Text className="text-base text-black font-pmedium">{t(name)}*</Text>
       <View className="flex flex-row flex-wrap justify-evenly">
         {selection.map((fuel, index) => (
           <TouchableOpacity
@@ -23,7 +25,7 @@ const SelectionForm: React.FC<SelectionProps> = ({
             onPress={() => handleChangeText(fuel)} // Pass selected fuel to handler
             style={[styles.button, value === fuel ? styles.selectedButton : {}]}
           >
-            <Text>{fuel}</Text>
+            <Text>{t(fuel)}</Text>
           </TouchableOpacity>
         ))}
       </View>
@@ -42,8 +44,8 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent",
   },
   selectedButton: {
-    borderColor: "#d45e40",
-    backgroundColor: "#d45e40",
+    borderColor: "#f5b90b",
+    backgroundColor: "#f5b90b",
     color: "white", // Highlight when selected
   },
 });
