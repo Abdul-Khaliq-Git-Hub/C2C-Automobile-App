@@ -3,6 +3,7 @@ import { Text, TouchableOpacity, View, Alert } from "react-native";
 import { collection, addDoc } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { db, storage } from "../firebase/firebaseConfig";
+import { t } from "i18next";
 
 type FormData = {
   Brand: string;
@@ -29,26 +30,26 @@ type SubmitButtonProps = {
 const SubmitButton: React.FC<SubmitButtonProps> = ({ formData, images }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  //   const validateForm = () => {
-  //     const emptyFields = Object.entries(formData)
-  //       .filter(([key, value]) => !value)
-  //       .map(([key]) => key);
+  const validateForm = () => {
+    const emptyFields = Object.entries(formData)
+      .filter(([key, value]) => !value)
+      .map(([key]) => key);
 
-  //     if (emptyFields.length > 0) {
-  //       Alert.alert(
-  //         "Incomplete Form",
-  //         `Please fill in the following fields: ${emptyFields.join(", ")}`
-  //       );
-  //       return false;
-  //     }
+    if (emptyFields.length > 0) {
+      Alert.alert(
+        "Incomplete Form",
+        `Please fill in the following fields: ${emptyFields.join(", ")}`
+      );
+      return false;
+    }
 
-  //     if (images.filter((img) => img !== null).length === 0) {
-  //       Alert.alert("No Images", "Please select at least one image");
-  //       return false;
-  //     }
+    if (images.filter((img) => img !== null).length === 0) {
+      Alert.alert("No Images", "Please select at least one image");
+      return false;
+    }
 
-  //     return true;
-  //   };
+    return true;
+  };
 
   const uploadImages = async () => {
     const imageUrls = [];
@@ -67,7 +68,7 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({ formData, images }) => {
   };
 
   const handleSubmit = async () => {
-    // if (!validateForm()) return;
+    if (!validateForm()) return;
     setIsSubmitting(true);
 
     try {
@@ -103,7 +104,7 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({ formData, images }) => {
     >
       <View>
         <Text className="text-white text-base">
-          {isSubmitting ? "Submitting..." : "Submit Listing"}
+          {isSubmitting ? t("Submitting...") : t("Submit Listing")}
         </Text>
       </View>
     </TouchableOpacity>
