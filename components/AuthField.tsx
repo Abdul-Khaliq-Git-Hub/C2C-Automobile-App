@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity, Image } from "react-native";
 import { icons } from "../constants";
+import { useTranslation } from "react-i18next";
 
 interface FormFieldProps {
   name?: string;
@@ -21,9 +22,10 @@ const FormField: React.FC<FormFieldProps> = ({
   ...props
 }) => {
   const [showPassword, setShowPassword] = useState(false);
+  const { t } = useTranslation();
   return (
     <View className={`"space-y-2 ${otherStyles}`}>
-      <Text className="text-base text-white font-pmedium">{title}*</Text>
+      <Text className="text-base text-white font-pmedium">{t(title)}*</Text>
       <View className="border border-white w-full h-14 px-4 bg-black-100 rounded-xl focus:border-primary items-center flex-row">
         <TextInput
           className="flex-1 text-white font-psemibold text-base"
