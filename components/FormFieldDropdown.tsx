@@ -1,9 +1,7 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { Modal } from "react-native";
-import brandTypes from "../constants/brandTypes";
-import truckTypes from "../constants/truckTypes";
-
+import { useTranslation } from "react-i18next";
 interface FormFieldDropdownProps {
   constant: string[];
   title: string;
@@ -21,15 +19,16 @@ const FormFieldDropdown: React.FC<FormFieldDropdownProps> = ({
   setPickerVisible,
   handleChange,
 }) => {
+  const { t } = useTranslation();
   return (
     <>
       <View>
-        <Text className="text-base ml-2 font-pmedium">{title}*</Text>
+        <Text className="text-base ml-2 font-pmedium">{t(title)}*</Text>
         <TouchableOpacity
-          className="border rounded-xl ml-2 mr-2 mb-4 border-secondary flex justify-center items-center h-16"
+          className="border rounded-xl ml-2 mr-2 mb-4 border-secondary flex justify-center items-center h-14"
           onPress={() => setPickerVisible(true)}
         >
-          <Text className="text-xl text-center">
+          <Text className="text-lg text-center">
             {form || `Select ${title}`}
           </Text>
         </TouchableOpacity>
@@ -42,12 +41,18 @@ const FormFieldDropdown: React.FC<FormFieldDropdownProps> = ({
         >
           <View className="flex-1 justify-center items-center ">
             <View className="bg-white p-4 w-80">
-              <Text className="text-lg font-semibold mb-2">Select {title}</Text>
+              <Text className="text-lg font-semibold mb-2">
+                {t("Select")} {t(title)}
+              </Text>
               <View className="border border-[0.5px]"></View>
               <Picker selectedValue={form} onValueChange={handleChange}>
                 <Picker.Item label={`Select ${title}`} value="" />
                 {constant.map((item, index) => (
-                  <Picker.Item key={index} label={item} value={item} />
+                  <Picker.Item
+                    key={`option-${index}`}
+                    label={item}
+                    value={item}
+                  />
                 ))}
               </Picker>
               <TouchableOpacity
